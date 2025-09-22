@@ -1,13 +1,15 @@
-import streamlit as st
+# counselor.py
+
+import os
 
 class CounselingBot:
     def __init__(self):
-        try:
-            self.api_key = st.secrets.get("OPENAI_API_KEY", "")
-        except:
-            self.api_key = ""
+        # Streamlitのst.secrets.get()を、OSの環境変数取得に置き換え
+        # Renderでは、環境変数は自動的に読み込まれます
+        self.api_key = os.environ.get("OPENAI_API_KEY", "")
         
     def get_counseling_response(self, content: str, mood: str, mood_intensity: int, category: str) -> str:
+        # 以前のコードのロジックはそのまま維持
         intensity_responses = {
             0: "今はとても辛い時期ですね。あなたの痛みを心から受け止めています。一人ではありません。",
             1: "大変な気持ちですね。そんな日もあります。無理をせず、自分を労ってあげてください。",
