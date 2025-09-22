@@ -1,4 +1,5 @@
-import streamlit as st
+# data_managers.py
+
 import json
 import os
 import hashlib
@@ -27,11 +28,13 @@ class GoalManager:
         return []
     
     def save_goals(self, goals: List[Goal]):
+        # st.errorの呼び出しを削除
         try:
             with open(self.goals_file, 'w', encoding='utf-8') as f:
                 json.dump([asdict(goal) for goal in goals], f, ensure_ascii=False, indent=2)
         except Exception as e:
-            st.error(f"目標の保存に失敗しました: {e}")
+            # バックエンドではエラーを再発生させるか、API側でハンドリング
+            raise e
     
     def add_goal(self, goal: Goal):
         goal.user_email = self.user_email
@@ -65,11 +68,13 @@ class DiaryManager:
         return []
     
     def save_entries(self, entries: List[DiaryEntry]):
+        # st.errorの呼び出しを削除
         try:
             with open(self.entries_file, 'w', encoding='utf-8') as f:
                 json.dump([asdict(entry) for entry in entries], f, ensure_ascii=False, indent=2)
         except Exception as e:
-            st.error(f"保存に失敗しました: {e}")
+            # バックエンドではエラーを再発生させるか、API側でハンドリング
+            raise e
     
     def add_entry(self, entry: DiaryEntry):
         entry.user_email = self.user_email
